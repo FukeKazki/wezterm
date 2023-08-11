@@ -16,38 +16,41 @@ config.colors = {
 -- key bindings
 config.disable_default_key_bindings = true
 -- leader key
-config.leader = { key = "Space", mods = "CTRL|SHIFT" }
+config.leader = { key = "Space", mods = "CTRL" }
 
 config.keys = {
 	-- split pane
 	{
 		key = "s",
-		mods = "CTRL",
+		mods = "ALT",
 		action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }),
 	},
 	{
 		key = "v",
-		mods = "CTRL",
+		mods = "ALT",
 		action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }),
 	},
 	-- move pane
-	{ key = "LeftArrow", mods = "SHIFT", action = wezterm.action({ ActivatePaneDirection = "Left" }) },
-	{ key = "RightArrow", mods = "SHIFT", action = wezterm.action({ ActivatePaneDirection = "Right" }) },
-	{ key = "UpArrow", mods = "SHIFT", action = wezterm.action({ ActivatePaneDirection = "Up" }) },
-	{ key = "DownArrow", mods = "SHIFT", action = wezterm.action({ ActivatePaneDirection = "Down" }) },
+	{ key = "h",   mods = "CTRL|SHIFT", action = wezterm.action({ ActivatePaneDirection = "Left" }) },
+	{ key = "l",   mods = "CTRL|SHIFT", action = wezterm.action({ ActivatePaneDirection = "Right" }) },
+	{ key = "k",   mods = "CTRL|SHIFT", action = wezterm.action({ ActivatePaneDirection = "Up" }) },
+	{ key = "j",   mods = "CTRL|SHIFT", action = wezterm.action({ ActivatePaneDirection = "Down" }) },
+	-- move between split panes
 	-- move tab
-	{ key = "Tab", mods = "CTRL", action = wezterm.action({ ActivateTabRelative = -1 }) },
+	{ key = "Tab", mods = "CTRL",       action = wezterm.action({ ActivateTabRelative = -1 }) },
+	-- new tab
+	{ key = "t",   mods = "CMD",        action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }) },
 	-- copy
-	{ key = "c", mods = "CMD", action = wezterm.action.CopyTo("ClipboardAndPrimarySelection") },
+	{ key = "c",   mods = "CMD",        action = wezterm.action.CopyTo("ClipboardAndPrimarySelection") },
 	-- paste
-	{ key = "v", mods = "CMD", action = wezterm.action.PasteFrom("Clipboard") },
-	-- Leaderキーを押した後にrを押すと、リサイズモードに入る
-	-- cmd + q
+	{ key = "v",   mods = "CMD",        action = wezterm.action.PasteFrom("Clipboard") },
+	-- cmd + q でタブを閉じる
 	{
 		key = "q",
 		mods = "CMD",
 		action = wezterm.action({ CloseCurrentTab = { confirm = true } }),
 	},
+	-- Leaderキーを押した後にrを押すと、リサイズモードに入る
 	{
 		key = "r",
 		mods = "LEADER",
@@ -60,19 +63,18 @@ config.keys = {
 config.key_tables = {
 	-- リサイズモード
 	resize_pane = {
-		{ key = "LeftArrow", action = act.AdjustPaneSize({ "Left", 1 }) },
-		{ key = "h", action = act.AdjustPaneSize({ "Left", 2 }) },
+		{ key = "LeftArrow",  action = act.AdjustPaneSize({ "Left", 1 }) },
+		{ key = "h",          action = act.AdjustPaneSize({ "Left", 2 }) },
 		{ key = "RightArrow", action = act.AdjustPaneSize({ "Right", 1 }) },
-		{ key = "l", action = act.AdjustPaneSize({ "Right", 1 }) },
-		{ key = "UpArrow", action = act.AdjustPaneSize({ "Up", 1 }) },
-		{ key = "k", action = act.AdjustPaneSize({ "Up", 1 }) },
-		{ key = "DownArrow", action = act.AdjustPaneSize({ "Down", 1 }) },
-		{ key = "j", action = act.AdjustPaneSize({ "Down", 1 }) },
+		{ key = "l",          action = act.AdjustPaneSize({ "Right", 1 }) },
+		{ key = "UpArrow",    action = act.AdjustPaneSize({ "Up", 1 }) },
+		{ key = "k",          action = act.AdjustPaneSize({ "Up", 1 }) },
+		{ key = "DownArrow",  action = act.AdjustPaneSize({ "Down", 1 }) },
+		{ key = "j",          action = act.AdjustPaneSize({ "Down", 1 }) },
 		-- Cancel the mode by pressing escape
-		{ key = "Escape", action = "PopKeyTable" },
+		{ key = "Escape",     action = "PopKeyTable" },
 	},
 }
-
 -- layout
 config.window_padding = {
 	left = 4,
